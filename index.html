@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Tax Calculator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">>
+
+<style>
+
+body {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 23px;
+  color: white;
+  background-color:white;
+}
+
+.calculator {
+  display: inline-block;
+  background: white;
+  margin: 3% 0;
+  color: black;
+  border-radius: 5%;
+  border: 1px solid #e7e7e7;
+  background-color: white;
+  padding-bottom: 20px;
+}
+
+.calculator button {
+  font-size: x-large;
+  color: #3f3f3f;
+  width: 80%;
+  min-height: 2.5em;
+  margin: 2%;
+  border-radius: 25px;
+  background-color: #cad8d8;
+  border: 1px solid #ad919100;
+  font-family: 'Inter', sans-serif;
+}
+
+.calculator button:hover {
+  background: #f7e583!important;
+  font-weight: 700;
+  color: #626262;
+  transform: scale(1.05);
+  transition: 0.5s;
+  cursor: pointer;
+}
+.note{
+  margin: auto;
+  width: 60%;
+}
+
+#screen {
+  background-color: #ececec;
+  border-radius: 29px;
+  width: 80%;
+  height: 80px;
+  margin: 5% auto;
+  text-align: right;
+  font-size: 40px;
+  font-family: 'Dosis', sans-serif;
+  padding-right: 15px;
+}
+
+.results {
+  font-family: 'Dosis', sans-serif;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.result-box {
+  background:#ececec;
+  border-radius:20px;
+  padding:15px;
+  margin:10px auto;
+  width:80%;
+}
+
+h2 {
+  font-family: 'Inter', sans-serif;
+  margin-top: 20px;
+}
+.result-box {
+  background:#ececec;
+  border-radius:20px;
+  padding:15px;
+  margin:10px auto;
+  width:80%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Proposition A Hover */
+.result-box:nth-child(1):hover {
+  background:#d4edda; /* soft green */
+  transform: scale(1.02);
+}
+
+/* Proposition B Hover */
+.result-box:nth-child(2):hover {
+  background:#d1ecf1; /* soft blue */
+  transform: scale(1.02);
+}
+
+/* Proposition C Hover */
+.result-box:nth-child(3):hover {
+  background:#fff3cd; /* soft yellow */
+  transform: scale(1.02);
+}
+
+/* Total Hover */
+.result-box:nth-child(4):hover {
+  background:#f8d7da; /* soft red */
+  transform: scale(1.02);
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+<h2>Property Tax Calculator</h2>
+
+<input type="number" id="screen" placeholder="Enter Property Value">
+
+<button onclick="calculateTax()">Calculate Estimated Additional Tax</button>
+ 
+
+<div class="results" id="results" style="display:none;">
+
+  <div class="result-box">
+    <strong>Proposition A</strong><br>
+    $24.99 per $100,000<br>
+    Estimated: $<span id="propA"></span>
+  </div>
+
+  <div class="result-box">
+    <strong>Proposition B</strong><br>
+    $9.36 per $100,000<br>
+    Estimated: $<span id="propB"></span>
+  </div>
+
+  <div class="result-box">
+    <strong>Proposition C</strong><br>
+    $4.65 per $100,000<br>
+    Estimated: $<span id="propC"></span>
+  </div>
+
+  <div class="result-box">
+    <strong>Total Estimated Additional Tax:</strong><br>
+    $<span id="total"></span>
+    <section class="note">
+      <br><br>
+      * The estimates are based on certain assumptions as outlined in the bond ordinance #11839-2026.
+    </section>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+
+function calculateTax() {
+
+  var propertyValue = parseFloat(document.getElementById("screen").value);
+
+  if (isNaN(propertyValue) || propertyValue <= 0) {
+    alert("Please enter a valid property value.");
+    return;
+  }
+
+  var multiplier = propertyValue / 100000;
+
+  var propA = multiplier * 24.99;
+  var propB = multiplier * 9.36;
+  var propC = multiplier * 4.65;
+
+  var total = propA + propB + propC;
+
+  document.getElementById("propA").innerText = propA.toFixed(2);
+  document.getElementById("propB").innerText = propB.toFixed(2);
+  document.getElementById("propC").innerText = propC.toFixed(2);
+  document.getElementById("total").innerText = total.toFixed(2);
+
+  document.getElementById("results").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
