@@ -123,7 +123,9 @@
 
 <input type="number" id="screen" placeholder="Enter Property Value">
 
-<button onclick="calculateTax()">Calculate Estimated Additional Tax</button>
+<button type="button" id="calcBtn">
+  Calculate Estimated Additional Tax
+</button>
  
 
 <div class="results" id="results" style="display:none;">
@@ -161,32 +163,37 @@
 
 <script>
 
-function calculateTax() {
-
-  var propertyValue = parseFloat(document.getElementById("screen").value);
-
-  if (isNaN(propertyValue) || propertyValue <= 0) {
-    alert("Please enter a valid property value.");
-    return;
+  document.getElementById("calcBtn").addEventListener("click", function(e) {
+    e.preventDefault(); // stops form submission if wrapped in a form
+    calculateTax();
+  });
+  
+  function calculateTax() {
+  
+    var propertyValue = parseFloat(document.getElementById("screen").value);
+  
+    if (isNaN(propertyValue) || propertyValue <= 0) {
+      alert("Please enter a valid property value.");
+      return;
+    }
+  
+    var multiplier = propertyValue / 100000;
+  
+    var propA = multiplier * 24.99;
+    var propB = multiplier * 9.36;
+    var propC = multiplier * 4.65;
+  
+    var total = propA + propB + propC;
+  
+    document.getElementById("propA").innerText = propA.toFixed(2);
+    document.getElementById("propB").innerText = propB.toFixed(2);
+    document.getElementById("propC").innerText = propC.toFixed(2);
+    document.getElementById("total").innerText = total.toFixed(2);
+  
+    document.getElementById("results").style.display = "block";
   }
-
-  var multiplier = propertyValue / 100000;
-
-  var propA = multiplier * 24.99;
-  var propB = multiplier * 9.36;
-  var propC = multiplier * 4.65;
-
-  var total = propA + propB + propC;
-
-  document.getElementById("propA").innerText = propA.toFixed(2);
-  document.getElementById("propB").innerText = propB.toFixed(2);
-  document.getElementById("propC").innerText = propC.toFixed(2);
-  document.getElementById("total").innerText = total.toFixed(2);
-
-  document.getElementById("results").style.display = "block";
-}
-
-</script>
-
+  
+  </script>
+  
 </body>
 </html>
